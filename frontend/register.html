@@ -2,10 +2,11 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BBVA - Afíliate a nuestros canales digitales</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BBVA - Registro</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -17,295 +18,192 @@
           }
         }
       }
-    }
+    };
   </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    .card-3d {
-      background: linear-gradient(135deg, #4A90E2 0%, #357ABD 50%, #1E5F99 100%);
-      transform: perspective(1000px) rotateY(-15deg) rotateX(5deg);
-      box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.3),
-        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
-    }
-
-    .card-3d::before {
-      content: '';
-      position: absolute;
-      top: 20%;
-      left: 10%;
-      width: 60%;
-      height: 15%;
-      background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
-      border-radius: 4px;
-    }
-
-    .card-3d::after {
-      content: '';
-      position: absolute;
-      bottom: 20%;
-      right: 15%;
-      width: 40%;
-      height: 8%;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 4px;
-    }
-
-    .form-input {
-      transition: all 0.3s ease;
-    }
-
-    .form-input:focus {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(25, 115, 184, 0.15);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #1973B8 0%, #043263 100%);
-      transition: all 0.3s ease;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(25, 115, 184, 0.3);
-    }
-
-    .info-icon {
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-
-      0%,
-      100% {
-        opacity: 1;
-      }
-
-      50% {
-        opacity: 0.7;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 </head>
 
 <body class="bg-gray-50 min-h-screen">
+
   <!-- Header -->
   <header class="bg-white shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-16">
         <div class="flex items-center">
-          <div class="text-3xl font-bold text-bbva-blue">BBVA</div>
+          <svg class="h-8 w-auto" viewBox="0 0 120 40" fill="none">
+            <text x="0" y="28" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+              fill="#1973B8">BBVA</text>
+          </svg>
         </div>
         <div>
-          <a href="#" class="text-bbva-blue hover:text-bbva-dark-blue text-sm font-medium transition-colors">
-            Ir a BBVA Perú
-          </a>
+          <a href="#" class="text-bbva-blue hover:text-bbva-dark-blue text-sm font-medium">Ir a BBVA Perú</a>
         </div>
       </div>
     </div>
   </header>
 
   <!-- Main Content -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-      <!-- Left Side - Form -->
-      <div class="bg-white rounded-2xl shadow-lg p-8 max-w-lg mx-auto lg:mx-0">
-        <div class="mb-8">
-          <h1 class="text-3xl font-bold text-bbva-dark-blue mb-4">
-            Afíliate a nuestros canales digitales
-          </h1>
-          <p class="text-gray-600">Para empezar, completa los siguientes datos</p>
-        </div>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+      <!-- Formulario de Registro -->
+      <div class="bg-white rounded-lg shadow-lg p-8 max-w-md mx-auto lg:mx-0">
+        <h1 class="text-3xl font-bold text-bbva-dark-blue mb-2">Afíliate</h1>
+        <p class="text-gray-600 mb-6">Completa tus datos para afiliarte</p>
 
-        <form class="space-y-6" id="affiliationForm">
-          <!-- Card Number -->
+        <form class="space-y-4" id="registerForm">
+          <!-- Tipo Documento -->
           <div>
-            <input type="text" placeholder="Número de tarjeta" maxlength="19"
-              class="form-input w-full px-4 py-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-bbva-blue focus:border-transparent text-lg"
-              id="cardNumber" required>
+            <label class="block text-sm text-gray-600 mb-1">Tipo de documento</label>
+            <div class="relative">
+              <select
+                class="w-full px-3 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-bbva-blue focus:border-transparent appearance-none bg-white">
+                <option>DNI</option>
+                <option>CE</option>
+                <option>Pasaporte</option>
+              </select>
+              <i
+                class="fas fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></i>
+            </div>
           </div>
 
-          <!-- PIN -->
+          <!-- Número de Documento -->
           <div>
-            <input type="password" placeholder="Clave de cajero" maxlength="6"
-              class="form-input w-full px-4 py-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-bbva-blue focus:border-transparent text-lg"
-              id="pin" required>
+            <input type="text" placeholder="Número de documento" id="documentNumber" maxlength="12"
+              class="w-full px-3 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-bbva-blue focus:border-transparent" />
           </div>
 
-          <!-- Info Message -->
-          <div class="flex items-start space-x-3 p-4 bg-blue-50 rounded-lg border border-blue-200">
-            <i class="fas fa-info-circle text-bbva-blue mt-1 info-icon"></i>
-            <p class="text-sm text-gray-700">
-              Si tienes una tarjeta sin datos impresos, afíliate desde nuestra App BBVA.
-            </p>
+          <!-- Nombre Completo -->
+          <div>
+            <input type="text" placeholder="Nombre completo" id="fullName"
+              class="w-full px-3 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-bbva-blue focus:border-transparent" />
           </div>
 
-          <!-- reCAPTCHA -->
-          <div class="flex justify-center">
-            <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
+          <!-- Contraseña -->
+          <div class="relative">
+            <input type="password" placeholder="Contraseña" id="password"
+              class="w-full px-3 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-bbva-blue focus:border-transparent pr-10" />
+            <button type="button"
+              class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+              <i class="fas fa-eye"></i>
+            </button>
           </div>
 
-          <!-- Submit Button -->
-          <button type="submit" class="btn-primary w-full py-4 text-white font-semibold rounded-lg text-lg">
-            Continuar
-          </button>
+          <!-- Botón -->
+          <div class="pt-4">
+            <button type="submit"
+              class="w-full bg-bbva-dark-blue hover:bg-blue-900 text-white font-medium py-3 px-6 rounded-md transition duration-200">
+              Registrar
+            </button>
+          </div>
         </form>
       </div>
 
-      <!-- Right Side - Promotional Content -->
-      <div class="bg-white rounded-2xl shadow-lg p-8 max-w-lg mx-auto lg:mx-0">
-        <div class="text-center mb-8">
-          <!-- 3D Credit Card -->
-          <div class="relative mx-auto mb-8" style="width: 200px; height: 120px;">
-            <div class="card-3d w-full h-full rounded-xl relative overflow-hidden">
-              <div class="absolute top-4 left-4 w-8 h-6 bg-yellow-400 rounded-sm opacity-80"></div>
-              <div class="absolute bottom-4 right-4 text-white text-xs font-bold opacity-80">BBVA</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="text-center">
-          <h2 class="text-2xl font-bold text-bbva-dark-blue mb-4">
-            ¿Aún no tienes una tarjeta de débito o crédito BBVA?
-          </h2>
-          <p class="text-gray-600 mb-6">
-            Solicítala en cualquiera de nuestras oficinas.
-          </p>
-
-          <a href="#"
-            class="inline-flex items-center text-bbva-blue hover:text-bbva-dark-blue font-medium transition-colors">
-            <i class="fas fa-map-marker-alt mr-2"></i>
-            Ubicar oficinas
-          </a>
-        </div>
+      <!-- Info derecha -->
+      <div class="bg-white rounded-lg shadow-lg p-8 max-w-md mx-auto lg:mx-0 text-center">
+        <h2 class="text-2xl font-bold text-bbva-dark-blue mb-4">Beneficios de nuestros canales digitales</h2>
+        <ul class="text-gray-600 mb-6 text-left space-y-2">
+          <li class="flex items-start"><i class="fas fa-check text-bbva-blue mr-2 mt-1"></i> Realiza transferencias
+            desde cualquier lugar</li>
+          <li class="flex items-start"><i class="fas fa-check text-bbva-blue mr-2 mt-1"></i> Consulta tus movimientos en
+            tiempo real</li>
+          <li class="flex items-start"><i class="fas fa-check text-bbva-blue mr-2 mt-1"></i> Recibe notificaciones</li>
+          <li class="flex items-start"><i class="fas fa-check text-bbva-blue mr-2 mt-1"></i> Configura alertas
+            personalizadas</li>
+        </ul>
       </div>
     </div>
   </main>
 
   <script>
-    // Format card number input
-    document.getElementById('cardNumber').addEventListener('input', function (e) {
-      let value = e.target.value.replace(/\s/g, '').replace(/[^0-9]/gi, '');
-      let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
-      if (formattedValue !== e.target.value) {
-        e.target.value = formattedValue;
+    // Mostrar/ocultar contraseña
+    document.querySelector('.fa-eye').addEventListener('click', function () {
+      const passwordInput = document.getElementById('password');
+      const icon = this;
+
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        passwordInput.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
       }
     });
 
-    // PIN input validation
-    document.getElementById('pin').addEventListener('input', function (e) {
-      e.target.value = e.target.value.replace(/[^0-9]/g, '');
-    });
+    // Encriptar y enviar
+    document.addEventListener('DOMContentLoaded', async function () {
+      const res = await fetch('http://localhost:3000/api/generate-pk');
+      const { n, e } = await res.json();
+      const n_num = parseInt(n);
+      const e_num = parseInt(e);
 
-    // Form submission
-    document.getElementById('affiliationForm').addEventListener('submit', function (e) {
-      e.preventDefault();
+      function encryptRSA(message, n_str, e_str) {
+        const n = BigInt(n_str);
+        const e = BigInt(e_str);
+        const encrypted = [];
 
-      const cardNumber = document.getElementById('cardNumber').value.replace(/\s/g, '');
-      const pin = document.getElementById('pin').value;
-
-      // Basic validation
-      if (cardNumber.length < 16) {
-        alert('Por favor, ingresa un número de tarjeta válido');
-        return;
-      }
-
-      if (pin.length < 4) {
-        alert('Por favor, ingresa tu clave de cajero');
-        return;
-      }
-
-      // Check reCAPTCHA
-      const recaptchaResponse = grecaptcha.getResponse();
-      if (!recaptchaResponse) {
-        alert('Por favor, completa la verificación reCAPTCHA');
-        return;
-      }
-
-      // Simulate form submission
-      const button = e.target.querySelector('button[type="submit"]');
-      const originalText = button.textContent;
-
-      button.textContent = 'Procesando...';
-      button.disabled = true;
-
-      setTimeout(() => {
-        alert('¡Afiliación exitosa! Serás redirigido al siguiente paso.');
-        button.textContent = originalText;
-        button.disabled = false;
-
-        // Reset form
-        e.target.reset();
-        grecaptcha.reset();
-      }, 2000);
-    });
-
-    // Add loading animation to form inputs
-    document.querySelectorAll('.form-input').forEach(input => {
-      input.addEventListener('focus', function () {
-        this.parentElement.classList.add('transform', 'scale-105');
-      });
-
-      input.addEventListener('blur', function () {
-        this.parentElement.classList.remove('transform', 'scale-105');
-      });
-    });
-
-    // Animate elements on page load
-    window.addEventListener('load', function () {
-      const elements = document.querySelectorAll('.bg-white');
-      elements.forEach((el, index) => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'all 0.6s ease';
-
-        setTimeout(() => {
-          el.style.opacity = '1';
-          el.style.transform = 'translateY(0)';
-        }, index * 200);
-      });
-    });
-
-    // Card number validation
-    function validateCardNumber(number) {
-      // Luhn algorithm for basic card validation
-      let sum = 0;
-      let isEven = false;
-
-      for (let i = number.length - 1; i >= 0; i--) {
-        let digit = parseInt(number.charAt(i));
-
-        if (isEven) {
-          digit *= 2;
-          if (digit > 9) {
-            digit -= 9;
-          }
+        for (let i = 0; i < message.length; i++) {
+          const m = BigInt(message.charCodeAt(i));
+          if (m >= n) throw new Error(`Carácter '${message[i]}' (ASCII=${m}) no puede cifrarse con n=${n}`);
+          const c = modPow(m, e, n);
+          encrypted.push(c.toString());
         }
 
-        sum += digit;
-        isEven = !isEven;
+        return encrypted.length === 1 ? encrypted[0] : encrypted;
       }
 
-      return sum % 10 === 0;
-    }
-
-    // Real-time card validation
-    document.getElementById('cardNumber').addEventListener('blur', function () {
-      const cardNumber = this.value.replace(/\s/g, '');
-      if (cardNumber.length >= 16) {
-        if (validateCardNumber(cardNumber)) {
-          this.classList.add('border-green-500');
-          this.classList.remove('border-red-500');
-        } else {
-          this.classList.add('border-red-500');
-          this.classList.remove('border-green-500');
+      function modPow(base, exponent, modulus) {
+        if (modulus === 1n) return 0n;
+        let result = 1n;
+        base %= modulus;
+        while (exponent > 0n) {
+          if (exponent % 2n === 1n) result = (result * base) % modulus;
+          exponent >>= 1n;
+          base = (base * base) % modulus;
         }
+        return result;
       }
+
+      document.getElementById('registerForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const secretKey = crypto.getRandomValues(new Uint8Array(32)).reduce((acc, val) => acc + String.fromCharCode(val % 94 + 33), '');
+        const rsaEncryptedKey = encryptRSA(secretKey, n_num, e_num);
+        const formatRsa = Array.isArray(rsaEncryptedKey) ? rsaEncryptedKey.join(',') : rsaEncryptedKey;
+
+        const formData = {
+          docType: this.querySelector('select').value,
+          ndoc: document.getElementById('documentNumber').value,
+          fullName: document.getElementById('fullName').value,
+          password: document.getElementById('password').value
+        };
+
+        const iv = CryptoJS.lib.WordArray.random(16);
+        const key = CryptoJS.enc.Utf8.parse(secretKey);
+
+        const encrypted = CryptoJS.AES.encrypt(JSON.stringify(formData), key, {
+          iv: iv,
+          mode: CryptoJS.mode.CBC,
+          padding: CryptoJS.pad.Pkcs7
+        });
+
+        const encryptedData = iv.toString(CryptoJS.enc.Hex) + ':' + encrypted.toString();
+
+        const resp = await fetch('http://localhost:3000/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ encryptedData, secretKeycl: formatRsa })
+        });
+
+        const result = await resp.json();
+        if (!result.success) {
+          alert('Error en el registro');
+          return;
+        }
+
+        window.location.href = 'login.html';
+      });
     });
   </script>
 </body>

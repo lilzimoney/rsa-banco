@@ -14,8 +14,8 @@ app.use(express.urlencoded({ extended: true }));
 
 
 const usuarios = [
-  { ndoc: '75165901', password: 'rodrigo' },
-  { ndoc: '75689638', password: 'hatsumi' },
+  { typeDoc: 'DNI', nombre: 'Rodrigo', ndoc: '75165901', password: 'rodrigo' },
+  { typeDoc: 'DNI', nombre: 'Hatsumi', ndoc: '75689638', password: 'hatsumi' },
 ];
 
 
@@ -38,9 +38,6 @@ app.get('/api/generate-pk', (req, res) => {
     e: e.toString() // para que el frontend lo reciba bien
   });
 });
-
-
-
 
 app.post('/api/login', (req, res) => {
   try {
@@ -81,7 +78,7 @@ app.post('/api/login', (req, res) => {
       return res.status(401).json({ error: 'Credenciales inválidas' });
     }
 
-    res.json({ success: true});
+    res.json({ success: true });
 
   } catch (error) {
     console.error('Error al descifrar:', error);
@@ -91,6 +88,62 @@ app.post('/api/login', (req, res) => {
     });
   }
 });
+
+app.post('/api/register', (req, res) => {
+  try {
+    const { encryptedData, secretKeycl } = req.body;
+
+    console.log("Clave encriptada RSA (register):", secretKeycl);
+
+    // 1. Leer clave privada
+    const privatePath = path.join(__dirname, 'keys', 'private.txt');
+    const privateContent = fs.readFileSync(privatePath, 'utf-8');
+    const [nStr, dStr] = privateContent.trim().split(',');
+    const n = BigInt(nStr);
+    const d = BigInt(dStr);
+
+    // 2. Descifrar clave AES
+    const secretKey = decryptRSA(secretKeycl, n, d); // 32 caracteres
+
+    // 3. Separar IV y datos cifrados
+    const [ivHex, encryptedText] = encryptedData.split(':');
+    const iv = Buffer.from(ivHex, 'hex');
+    const key = Buffer.from(secretKey, 'utf8');
+
+    // 4. Descifrar con AES-256-CBC
+    const decipher = crypto.createDecipheriv('aes-256-cbc', key, iv);
+    let decrypted = decipher.update(encryptedText, 'base64', 'utf8');
+    decrypted += decipher.final('utf8');
+
+    const formData = JSON.parse(decrypted);
+    console.log('Datos de registro descifrados:', formData);
+
+    // 5. Verificar si ya existe
+    const yaExiste = usuarios.find(u => u.ndoc === formData.ndoc);
+    if (yaExiste) {
+      return res.status(400).json({ error: 'Usuario ya registrado' });
+    }
+
+    // 6. Registrar
+    usuarios.push({
+      typeDoc: formData.docType,
+      ndoc: formData.ndoc,
+      nombre: formData.fullName,
+      password: formData.password
+    });
+    console.log('Nuevo usuario registrado:', usuarios.at(-1));
+    return res.json({ success: true });
+
+  } catch (error) {
+    console.error('Error en el registro:', error);
+    res.status(500).json({
+      error: 'Error en el servidor',
+      details: error.message
+    });
+  }
+});
+
+
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });
