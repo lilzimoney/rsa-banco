@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BBVA - Banca por Internet</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bbva-blue': '#1973B8',
+            'bbva-dark-blue': '#043263',
+            'bbva-light-blue': '#5BBAD5'
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+  <!-- Header -->
+  <header class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center">
+          <svg class="h-8 w-auto" viewBox="0 0 120 40" fill="none">
+            <text x="0" y="28" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+              fill="#1973B8">BBVA</text>
+          </svg>
+        </div>
+        <div>
+          <a href="#" class="text-bbva-blue hover:text-bbva-dark-blue text-sm font-medium">
+            Ir a BBVA Perú
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+      <!-- Login Form -->
+      <div class="bg-white rounded-lg shadow-lg p-8 max-w-md mx-auto lg:mx-0">
+        <h1 class="text-3xl font-bold text-bbva-dark-blue mb-2">¡Hola!</h1>
+        <p class="text-gray-600 mb-6">Completa tus datos y disfruta de tu Banca por Internet</p>
+
+        <form class="space-y-4" id="loginForm">
+          <!-- Document Type -->
+          <div>
+            <label class="block text-sm text-gray-600 mb-1">Tipo de documento</label>
+            <div class="relative">
+              <select
+                class="w-full px-3 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-bbva-blue focus:border-transparent appearance-none bg-white">
+                <option>DNI</option>
+                <option>CE</option>
+                <option>Pasaporte</option>
+              </select>
+              <i
+                class="fas fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></i>
+            </div>
+          </div>
+
+          <!-- Document Number -->
+          <div>
+            <input type="text" placeholder="Número de documento"
+              class="w-full px-3 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-bbva-blue focus:border-transparent">
+          </div>
+
+          <!-- Remember Document -->
+          <div class="flex items-center space-x-2">
+            <input type="checkbox" id="remember"
+              class="w-4 h-4 text-bbva-blue border-gray-300 rounded focus:ring-bbva-blue">
+            <label for="remember" class="text-sm text-gray-600 flex items-center">
+              Recordar documento
+              <i class="fas fa-info-circle ml-1 text-gray-400"></i>
+            </label>
+          </div>
+
+          <!-- Password -->
+          <div class="relative">
+            <input type="password" placeholder="Contraseña de Banca por Internet"
+              class="w-full px-3 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-bbva-blue focus:border-transparent pr-10">
+            <button type="button"
+              class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+
+          <!-- Forgot Password -->
+          <div class="text-left">
+            <a href="#" class="text-bbva-blue hover:text-bbva-dark-blue text-sm font-medium">
+              ¿Olvidaste o bloqueaste tu contraseña?
+            </a>
+          </div>
+
+          <!-- Buttons -->
+          <div class="flex space-x-3 pt-4">
+            <button type="submit"
+              class="flex-1 bg-bbva-dark-blue hover:bg-blue-900 text-white font-medium py-3 px-6 rounded-md transition duration-200">
+              Ingresar
+            </button>
+            <button type="button"
+              class="flex-1 bg-white hover:bg-gray-50 text-bbva-blue border border-bbva-blue font-medium py-3 px-6 rounded-md transition duration-200">
+              Afíliate
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Right Side Content -->
+      <div class="bg-white rounded-lg shadow-lg p-8 max-w-md mx-auto lg:mx-0">
+        <div class="text-center mb-6">
+          <div
+            class="w-32 h-20 mx-auto mb-4 bg-gradient-to-r from-blue-400 to-blue-600 rounded-lg flex items-center justify-center">
+            <div class="w-24 h-16 bg-gradient-to-r from-blue-300 to-blue-500 rounded opacity-80"></div>
+          </div>
+        </div>
+
+        <h2 class="text-2xl font-bold text-bbva-dark-blue mb-4">
+          ¿Todavía no eres cliente de BBVA?
+        </h2>
+        <p class="text-gray-600 mb-6">
+          Inicia tu camino con nosotros abriendo una cuenta.
+        </p>
+
+        <button
+          class="w-full bg-bbva-dark-blue hover:bg-blue-900 text-white font-medium py-3 px-6 rounded-md transition duration-200">
+          Abrir cuenta
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-bbva-dark-blue text-white mt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">
+        <!-- Logo -->
+        <div>
+          <svg class="h-8 w-auto" viewBox="0 0 120 40" fill="none">
+            <text x="0" y="28" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
+              fill="white">BBVA</text>
+          </svg>
+        </div>
+
+        <!-- Social Media Icons -->
+        <div class="flex space-x-4">
+          <a href="#"
+            class="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition duration-200">
+            <i class="fab fa-facebook-f text-sm"></i>
+          </a>
+          <a href="#"
+            class="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition duration-200">
+            <i class="fab fa-twitter text-sm"></i>
+          </a>
+          <a href="#"
+            class="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition duration-200">
+            <i class="fab fa-instagram text-sm"></i>
+          </a>
+          <a href="#"
+            class="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition duration-200">
+            <i class="fab fa-linkedin-in text-sm"></i>
+          </a>
+          <a href="#"
+            class="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition duration-200">
+            <i class="fab fa-youtube text-sm"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="mt-6 pt-6 border-t border-white border-opacity-20">
+        <div class="text-center lg:text-left text-sm text-gray-300 space-y-2">
+          <p>Llámanos (01) 595-0000 | Banco BBVA Perú - RUC 20100130204 | Av. República de Panamá 3055, San Isidro</p>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="mt-4 pt-4 border-t border-white border-opacity-20 text-center">
+        <p class="text-xs text-gray-400">© 2025 Banco Bilbao Vizcaya Argentaria S. A.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Toggle password visibility
+    document.querySelector('.fa-eye').addEventListener('click', function () {
+      const passwordInput = document.querySelector('input[type="password"]');
+      const icon = this;
+
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        passwordInput.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
+    });
+
+    // Form validation
+    document.querySelector('form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      alert('Formulario enviado (demo)');
+    });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async function () {
+
+      //GET PUBLIC KEY
+      const response = await fetch('http://localhost:3000/api/generate-pk');
+      const data = await response.json();
+      const { n, e } = data;
+
+      const n_num = parseInt(n);
+      const e_num = parseInt(e);
+
+      //FUNCION PARA CIFRAR RSA 
+      function encryptRSA(message, n_str, e_str) {
+        const n = BigInt(n_str);
+        const e = BigInt(e_str);
+        const encrypted = [];
+
+        for (let i = 0; i < message.length; i++) {
+          const m = BigInt(message.charCodeAt(i));
+          if (m >= n) {
+            throw new Error(`Carácter '${message[i]}' (ASCII=${m}) no puede cifrarse con n=${n}`);
+          }
+          const c = modPow(m, e, n);
+          encrypted.push(c.toString());
+        }
+
+        return encrypted.length === 1 ? encrypted[0] : encrypted;
+      }
+
+      function modPow(base, exponent, modulus) {
+        if (modulus === 1n) return 0n;
+        let result = 1n;
+        base %= modulus;
+        while (exponent > 0n) {
+          if (exponent % 2n === 1n) result = (result * base) % modulus;
+          exponent >>= 1n;
+          base = (base * base) % modulus;
+        }
+        return result;
+      }
+
+      //LOGIN
+      document.getElementById('loginForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        function generateRandomSecretKey(length = 32) {
+          const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+          const array = new Uint8Array(length);
+          crypto.getRandomValues(array);
+          return Array.from(array).map(byte => charset[byte % charset.length]).join('');
+        }
+        // Clave DEBE ser exactamente 32 caracteres (256 bits)
+        const secretKey = generateRandomSecretKey(); // 32 caracteres
+ 
+        const secretKeyEncrypt = encryptRSA(secretKey, n_num, e_num);
+
+        const formatRsaSecretkey = Array.isArray(secretKeyEncrypt) ? secretKeyEncrypt.join(',') : secretKeyEncrypt;
+
+        // Obtener datos del formulario
+        const formData = {
+          docType: this.querySelector('select').value,
+          ndoc: this.querySelector('input[type="text"]').value,
+          password: this.querySelector('input[type="password"]').value
+        };
+
+        // 1. Generar IV aleatorio (16 bytes)
+        const iv = CryptoJS.lib.WordArray.random(16);
+
+        // 2. Convertir clave a formato CryptoJS
+        const key = CryptoJS.enc.Utf8.parse(secretKey);
+
+        // 3. Cifrar con AES-256-CBC
+        const encrypted = CryptoJS.AES.encrypt(
+          JSON.stringify(formData),
+          key,
+          {
+            iv: iv,
+            mode: CryptoJS.mode.CBC,
+            padding: CryptoJS.pad.Pkcs7
+          }
+        );
+
+        // 4. Formato final: IV(hex) + ":" + Datos(base64)
+        const encryptedData = iv.toString(CryptoJS.enc.Hex) + ':' + encrypted.toString();
+
+        //DATOS ENVIAR
+        const resp = await fetch('http://localhost:3000/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ encryptedData, secretKeycl: formatRsaSecretkey }) // Clave cifrada
+        });
+
+        const result = await resp.json();
+
+        if(!result.success){
+          alert('Credenciales incorrectas');
+          return;
+        }
+
+        window.location.href = 'http://localhost:90/dashboard.html'; // Redirigir al dashboard
+
+      });
+    });
+
+
+  </script>
+</body>
+
+</html>
